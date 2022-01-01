@@ -9,9 +9,10 @@ import {
   TitleContainer,
   Title,
   Subtitle,
+  WelcomeText,
 } from './styles';
 
-export const Home: React.FC = () => {
+export const Welcome: React.FC = () => {
   return (
     <Container>
       <MainImageContainer>
@@ -19,10 +20,12 @@ export const Home: React.FC = () => {
       </MainImageContainer>
 
       <TitleContainer>
+        <WelcomeText>Bem-vindo ao</WelcomeText>
+
         <Title>Amigo Secreto</Title>
 
         <Subtitle>
-          Dê uma pequena porção de felicidade para seus amigos!
+          Dê uma pequena porção de felicidade para seus amigos e colegas!
         </Subtitle>
 
         <Button title="Começar" />

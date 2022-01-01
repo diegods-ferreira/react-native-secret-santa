@@ -32,18 +32,25 @@ export const TitleContainer = styled.View.attrs(({ theme }) => ({
   border-top-right-radius: ${RFValue(28)}px;
 `;
 
+export const WelcomeText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(14)}px;
+  color: ${({ theme }) => theme.colors.subtitle};
+  text-align: center;
+`;
+
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: ${RFValue(24)}px;
   color: ${({ theme }) => theme.colors.text};
   text-align: center;
-  margin-bottom: ${RFValue(8)}px;
+  margin-bottom: ${RFValue(24)}px;
 `;
 
 export const Subtitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.semibold};
   font-size: ${RFValue(16)}px;
-  color: ${({ theme }) => theme.colors.subtitle};
+  color: ${({ theme }) => theme.colors.text_secondary};
   text-align: center;
   margin-bottom: ${RFValue(32)}px;
 `;

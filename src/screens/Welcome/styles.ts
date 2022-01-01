@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
-import christmasImg from '../../assets/images/christmas.png';
+import santaClausImg from '../../assets/images/santa-claus.png';
 
 export const Container = styled.View`
   flex: 1;
@@ -17,7 +17,8 @@ export const MainImageContainer = styled.View`
 const mainImageSize = RFPercentage(40);
 
 export const MainImage = styled.Image.attrs({
-  source: christmasImg,
+  source: santaClausImg,
+  resizeMode: 'contain',
 })`
   width: ${mainImageSize}px;
   height: ${mainImageSize}px;

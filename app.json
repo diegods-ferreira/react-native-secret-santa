@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "react-native-secret-santa",
+    "slug": "react-native-secret-santa",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "react-native-secret-santa"
+}

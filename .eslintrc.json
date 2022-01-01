@@ -56,7 +56,8 @@
         { "namedComponents": "arrow-function" }
       ],
       "import/prefer-default-export": "off",
-      "@typescript-eslint/no-empty-interface": "off"
+      "@typescript-eslint/no-empty-interface": "off",
+      "camelcase": "off"
     },
     "settings": {
       "import/resolver": {

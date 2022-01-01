@@ -1,3 +1,5 @@
+import fonts from './fonts';
+
 export default {
   light: {
     colors: {
@@ -11,6 +13,7 @@ export default {
       text: '#49444b',
       text_secondary: '#aba2a8',
     },
+    fonts,
   },
   dark: {
     colors: {
@@ -24,5 +27,6 @@ export default {
       text: '#ebebeb',
       text_secondary: '#aaaaaa',
     },
+    fonts,
   },
 };

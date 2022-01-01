@@ -6,19 +6,25 @@ interface TypeProps {
   type: 'primary' | 'secondary' | 'tertiary';
 }
 
-export const RectButton = styled(RectButtonRNGH)`
-  height: ${RFValue(56)}px;
-  border-radius: ${RFValue(28)}px;
+interface IconProps {
+  iconRight: boolean;
+}
+
+export const RectButton = styled(RectButtonRNGH)<IconProps>`
+  height: ${RFValue(64)}px;
+  border-radius: ${RFValue(32)}px;
   background: ${({ theme }) => theme.colors.attention};
 
+  flex-direction: ${({ iconRight }) => (iconRight ? 'row-reverse' : 'row')};
   justify-content: center;
   align-items: center;
 `;
 
-export const TouchableOpacity = styled.TouchableOpacity<TypeProps>`
-  height: ${RFValue(56)}px;
-  border-radius: ${RFValue(28)}px;
+export const TouchableOpacity = styled.TouchableOpacity<TypeProps & IconProps>`
+  height: ${RFValue(64)}px;
+  border-radius: ${RFValue(32)}px;
 
+  flex-direction: ${({ iconRight }) => (iconRight ? 'row-reverse' : 'row')};
   justify-content: center;
   align-items: center;
 
@@ -30,7 +36,7 @@ export const TouchableOpacity = styled.TouchableOpacity<TypeProps>`
     `}
 `;
 
-export const ButtonText = styled.Text<TypeProps>`
+export const ButtonText = styled.Text<TypeProps & IconProps>`
   font-family: ${({ theme }) => theme.fonts.bold};
   font-size: ${RFValue(16)}px;
 
@@ -45,4 +51,13 @@ export const ButtonText = styled.Text<TypeProps>`
     css`
       color: ${({ theme }) => theme.colors.attention};
     `}
+
+  ${({ iconRight }) =>
+    iconRight
+      ? css`
+          margin-right: ${RFValue(16)}px;
+        `
+      : css`
+          margin-left: ${RFValue(16)}px;
+        `}
 `;

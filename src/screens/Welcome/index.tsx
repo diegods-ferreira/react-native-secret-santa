@@ -28,7 +28,7 @@ export const Welcome: React.FC = () => {
           Dê uma pequena porção de felicidade para seus amigos e colegas!
         </Subtitle>
 
-        <Button title="Começar" />
+        <Button title="Começar" icon="arrow-right" iconRight />
       </TitleContainer>
     </Container>
   );

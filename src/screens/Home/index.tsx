@@ -1,17 +1,32 @@
 import React from 'react';
-import { View } from 'react-native';
-import { useTheme } from 'styled-components';
 
-// import { Container } from './styles';
+import { Button } from '../../components/Button';
+
+import {
+  Container,
+  MainImageContainer,
+  MainImage,
+  TitleContainer,
+  Title,
+  Subtitle,
+} from './styles';
 
 export const Home: React.FC = () => {
-  const theme = useTheme();
-
   return (
-    <>
-      {Object.keys(theme.colors).map((color) => (
-        <View style={{ flex: 1, backgroundColor: theme.colors[color] }} />
-      ))}
-    </>
+    <Container>
+      <MainImageContainer>
+        <MainImage />
+      </MainImageContainer>
+
+      <TitleContainer>
+        <Title>Amigo Secreto</Title>
+
+        <Subtitle>
+          Dê uma pequena porção de felicidade para seus amigos!
+        </Subtitle>
+
+        <Button title="Começar" />
+      </TitleContainer>
+    </Container>
   );
 };

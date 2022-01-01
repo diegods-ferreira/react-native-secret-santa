@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ThemeProvider } from 'styled-components';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import {
@@ -33,10 +34,16 @@ export const App: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme[selectedTheme]}>
-      <StatusBar style="auto" />
+      <StatusBar
+        style={selectedTheme === 'dark' ? 'light' : 'dark'}
+        backgroundColor={theme[selectedTheme].colors.primary}
+        translucent
+      />
 
       <SafeAreaView style={{ flex: 1 }}>
-        <Home />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Home />
+        </GestureHandlerRootView>
       </SafeAreaView>
     </ThemeProvider>
   );

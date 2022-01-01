@@ -1,4 +1,5 @@
 import fonts from './fonts';
+import boxShadow from './boxShadow';
 
 export default {
   light: {
@@ -14,6 +15,7 @@ export default {
       text_secondary: '#aba2a8',
     },
     fonts,
+    boxShadow,
   },
   dark: {
     colors: {
@@ -28,5 +30,6 @@ export default {
       text_secondary: '#aaaaaa',
     },
     fonts,
+    boxShadow,
   },
 };

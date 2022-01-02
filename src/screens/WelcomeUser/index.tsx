@@ -4,12 +4,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import { WelcomeUserScreenRouteProps } from '../../data/routes/welcome';
 
-import boxShadow from '../../global/styles/boxShadow';
+import { useCustomTheme } from '../../hooks/custom-theme';
 
 import { TextInput } from '../../components/TextInput';
 import { DateInput } from '../../components/DateInput';
 import { SwitchInput } from '../../components/SwitchInput';
 import { Button } from '../../components/Button';
+
+import boxShadow from '../../global/styles/boxShadow';
 
 import {
   Container,
@@ -24,8 +26,17 @@ import {
 export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
   navigation,
 }) => {
+  const { selectedCustomTheme, toggleCustomTheme } = useCustomTheme();
+
   const [birthDate, setBirthDate] = useState<Date>();
-  const [enableDarkTheme, setEnableDarkTheme] = useState(false);
+  const [enableDarkTheme, setEnableDarkTheme] = useState(
+    selectedCustomTheme === 'dark',
+  );
+
+  const handleEnableDarkMode = () => {
+    setEnableDarkTheme((prevState) => !prevState);
+    toggleCustomTheme();
+  };
 
   return (
     <KeyboardAvoidingView
@@ -80,9 +91,7 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
                 label="Tema escuro?"
                 icon="theme-light-dark"
                 isEnabled={enableDarkTheme}
-                onValueChange={() =>
-                  setEnableDarkTheme((prevState) => !prevState)
-                }
+                onValueChange={handleEnableDarkMode}
               />
             </FormContainer>
 

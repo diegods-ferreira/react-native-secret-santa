@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ThemeProvider } from 'styled-components';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import {
   Nunito_300Light,
@@ -12,15 +10,11 @@ import {
   useFonts,
 } from '@expo-google-fonts/nunito';
 
-import theme from './global/styles/theme';
+import AppProvider from './hooks';
 
 import { Routes } from './routes';
 
-type Theme = 'light' | 'dark';
-
 export const App: React.FC = () => {
-  const [selectedTheme, setSelectedTheme] = useState<Theme>('light');
-
   const [fontsLoaded] = useFonts({
     Nunito_300Light,
     Nunito_400Regular,
@@ -33,18 +27,12 @@ export const App: React.FC = () => {
   }
 
   return (
-    <ThemeProvider theme={theme[selectedTheme]}>
-      <StatusBar
-        style="light"
-        backgroundColor={theme[selectedTheme].colors.primary}
-        translucent
-      />
-
+    <AppProvider>
       <SafeAreaView style={{ flex: 1 }}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Routes />
         </GestureHandlerRootView>
       </SafeAreaView>
-    </ThemeProvider>
+    </AppProvider>
   );
 };

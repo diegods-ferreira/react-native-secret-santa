@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { WelcomeUserScreenRouteProps } from '../../data/routes/welcome';
@@ -28,8 +28,12 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
-      <ScrollView style={{ flex: 1 }}>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      enabled
+    >
+      <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
         <Container>
           <InnerContainer style={boxShadow}>
             <BackButton onPress={() => navigation.goBack()}>
@@ -86,6 +90,6 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
           </InnerContainer>
         </Container>
       </ScrollView>
-    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };

@@ -14,6 +14,7 @@ interface ButtonProps {
   icon?: any;
   iconRight?: boolean;
   showLoadingIndicator?: boolean;
+  onPress(): void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -22,12 +23,13 @@ export const Button: React.FC<ButtonProps> = ({
   icon,
   iconRight = false,
   showLoadingIndicator,
+  onPress,
 }) => {
   const theme = useTheme();
 
   if (type === 'primary') {
     return (
-      <RectButton iconRight={iconRight} style={boxShadow}>
+      <RectButton iconRight={iconRight} style={boxShadow} onPress={onPress}>
         {showLoadingIndicator ? (
           <ActivityIndicator size="large" color={theme.colors.text} />
         ) : (
@@ -44,7 +46,7 @@ export const Button: React.FC<ButtonProps> = ({
   }
 
   return (
-    <TouchableOpacity type={type} iconRight={iconRight}>
+    <TouchableOpacity type={type} iconRight={iconRight} onPress={onPress}>
       {showLoadingIndicator ? (
         <ActivityIndicator size="large" color={theme.colors.attention} />
       ) : (

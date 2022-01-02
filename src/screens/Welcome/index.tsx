@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { WelcomeScreenRouteProps } from '../../data/routes/welcome';
+
 import { Button } from '../../components/Button';
 
 import {
@@ -12,7 +14,7 @@ import {
   WelcomeText,
 } from './styles';
 
-export const Welcome: React.FC = () => {
+export const Welcome: React.FC<WelcomeScreenRouteProps> = ({ navigation }) => {
   return (
     <Container>
       <MainImageContainer>
@@ -28,7 +30,12 @@ export const Welcome: React.FC = () => {
           Dê uma pequena porção de felicidade para seus amigos e colegas!
         </Subtitle>
 
-        <Button title="Começar" icon="arrow-right" iconRight />
+        <Button
+          title="Começar"
+          icon="arrow-right"
+          iconRight
+          onPress={() => navigation.navigate('WelcomeUser')}
+        />
       </TitleContainer>
     </Container>
   );

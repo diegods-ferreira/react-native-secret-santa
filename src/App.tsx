@@ -14,8 +14,7 @@ import {
 
 import theme from './global/styles/theme';
 
-import { Welcome } from './screens/Welcome';
-import { WelcomeUser } from './screens/WelcomeUser';
+import { Routes } from './routes';
 
 type Theme = 'light' | 'dark';
 
@@ -43,7 +42,7 @@ export const App: React.FC = () => {
 
       <SafeAreaView style={{ flex: 1 }}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <WelcomeUser />
+          <Routes />
         </GestureHandlerRootView>
       </SafeAreaView>
     </ThemeProvider>

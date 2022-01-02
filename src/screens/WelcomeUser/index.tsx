@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';
-
 import { ScrollView } from 'react-native-gesture-handler';
+
+import { WelcomeUserScreenRouteProps } from '../../data/routes/welcome';
+
 import boxShadow from '../../global/styles/boxShadow';
 
 import { TextInput } from '../../components/TextInput';
@@ -15,9 +17,13 @@ import {
   Title,
   Subtitle,
   FormContainer,
+  BackButton,
+  BackButtonIcon,
 } from './styles';
 
-export const WelcomeUser: React.FC = () => {
+export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
+  navigation,
+}) => {
   const [birthDate, setBirthDate] = useState<Date>();
   const [enableDarkTheme, setEnableDarkTheme] = useState(false);
 
@@ -26,6 +32,10 @@ export const WelcomeUser: React.FC = () => {
       <ScrollView style={{ flex: 1 }}>
         <Container>
           <InnerContainer style={boxShadow}>
+            <BackButton onPress={() => navigation.goBack()}>
+              <BackButtonIcon />
+            </BackButton>
+
             <Title>Vamos começar!</Title>
 
             <Subtitle>Só vamos precisar de algumas informações...</Subtitle>

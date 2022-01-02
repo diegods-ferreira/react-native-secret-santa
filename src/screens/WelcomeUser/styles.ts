@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export const Container = styled.View`
   flex: 1;
@@ -16,6 +17,18 @@ export const InnerContainer = styled.View`
   border-radius: ${RFValue(32)}px;
   padding: ${RFValue(32)}px;
 `;
+
+export const BackButton = styled.TouchableOpacity`
+  margin-bottom: ${RFValue(16)}px;
+`;
+
+export const BackButtonIcon = styled(MaterialCommunityIcons).attrs(
+  ({ theme }) => ({
+    name: 'arrow-left',
+    size: RFValue(24),
+    color: theme.colors.text,
+  }),
+)``;
 
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};

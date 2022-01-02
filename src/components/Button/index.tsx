@@ -1,8 +1,10 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import { useTheme } from 'styled-components';
-import { Feather as FeatherIcon } from '@expo/vector-icons';
+import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
+
+import boxShadow from '../../global/styles/boxShadow';
 
 import { RectButton, TouchableOpacity, ButtonText } from './styles';
 
@@ -25,14 +27,12 @@ export const Button: React.FC<ButtonProps> = ({
 
   if (type === 'primary') {
     return (
-      <RectButton iconRight={iconRight}>
+      <RectButton iconRight={iconRight} style={boxShadow}>
         {showLoadingIndicator ? (
           <ActivityIndicator size="large" color={theme.colors.text} />
         ) : (
           <>
-            {!!icon && (
-              <FeatherIcon name={icon} size={RFValue(20)} color="#ffffff" />
-            )}
+            {!!icon && <Icon name={icon} size={RFValue(20)} color="#ffffff" />}
 
             <ButtonText type={type} iconRight={iconRight}>
               {title}
@@ -49,9 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
         <ActivityIndicator size="large" color={theme.colors.attention} />
       ) : (
         <>
-          {!!icon && (
-            <FeatherIcon name={icon} size={RFValue(20)} color="#ffffff" />
-          )}
+          {!!icon && <Icon name={icon} size={RFValue(20)} color="#ffffff" />}
 
           <ButtonText type={type} iconRight={iconRight}>
             {title}

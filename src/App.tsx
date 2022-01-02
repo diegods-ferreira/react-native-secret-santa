@@ -15,6 +15,7 @@ import {
 import theme from './global/styles/theme';
 
 import { Welcome } from './screens/Welcome';
+import { WelcomeUser } from './screens/WelcomeUser';
 
 type Theme = 'light' | 'dark';
 
@@ -35,14 +36,14 @@ export const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme[selectedTheme]}>
       <StatusBar
-        style={selectedTheme === 'dark' ? 'light' : 'dark'}
+        style="light"
         backgroundColor={theme[selectedTheme].colors.primary}
         translucent
       />
 
       <SafeAreaView style={{ flex: 1 }}>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Welcome />
+          <WelcomeUser />
         </GestureHandlerRootView>
       </SafeAreaView>
     </ThemeProvider>

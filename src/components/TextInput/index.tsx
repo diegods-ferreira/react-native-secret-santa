@@ -2,22 +2,39 @@ import React, { useState, useCallback } from 'react';
 import { TextInputProps as RNTextInputProps } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { useTheme } from 'styled-components';
+import { Control, Controller } from 'react-hook-form';
 
-import { Container, InnerContainer, RNTextInput, Icon, Label } from './styles';
+import {
+  Container,
+  InnerContainer,
+  RNTextInput,
+  Icon,
+  Label,
+  Error,
+} from './styles';
 
 interface TextInputProps extends RNTextInputProps {
   icon?: string;
   label?: string;
+  name: string;
+  control: Control;
+  error?: {
+    message: string;
+  };
+  defaultValue?: string;
 }
 
 export const TextInput: React.FC<TextInputProps> = ({
   icon,
   label,
+  name,
+  control,
+  error,
+  defaultValue,
   ...rest
 }) => {
   const theme = useTheme();
 
-  const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
 
@@ -25,16 +42,16 @@ export const TextInput: React.FC<TextInputProps> = ({
     setIsFocused(true);
   }, []);
 
-  const handleInputBlur = useCallback(() => {
+  const handleInputBlur = useCallback((value: string) => {
     setIsFocused(false);
-    setIsFilled(!!inputValue);
-  }, [inputValue]);
+    setIsFilled(!!value);
+  }, []);
 
   return (
     <Container>
       {!!label && <Label>{label}</Label>}
 
-      <InnerContainer isFocused={isFocused}>
+      <InnerContainer isFocused={isFocused} isErrored={!!error}>
         {!!icon && (
           <Icon
             name={icon}
@@ -47,19 +64,25 @@ export const TextInput: React.FC<TextInputProps> = ({
           />
         )}
 
-        <RNTextInput
-          {...rest}
-          keyboardAppearance="dark"
-          placeholderTextColor={theme.colors.placeholder}
-          value={inputValue}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          onChangeText={(value) => {
-            setInputValue(value);
-            setIsFilled(!!value);
-          }}
+        <Controller
+          name={name}
+          control={control}
+          defaultValue={defaultValue}
+          render={({ field: { onChange, value } }) => (
+            <RNTextInput
+              {...rest}
+              keyboardAppearance="dark"
+              placeholderTextColor={theme.colors.placeholder}
+              value={value}
+              onChangeText={onChange}
+              onFocus={handleInputFocus}
+              onBlur={() => handleInputBlur(value)}
+            />
+          )}
         />
       </InnerContainer>
+
+      {!!error && <Error>{error.message}</Error>}
     </Container>
   );
 };

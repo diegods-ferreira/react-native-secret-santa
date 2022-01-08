@@ -1,9 +1,10 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-interface ContainerProps {
+interface InnerContainerProps {
   isFocused: boolean;
+  isErrored: boolean;
 }
 
 export const Container = styled.View`
@@ -19,18 +20,28 @@ export const Label = styled.Text`
   margin-bottom: ${RFValue(4)}px;
 `;
 
-export const InnerContainer = styled.View<ContainerProps>`
+export const InnerContainer = styled.View<InnerContainerProps>`
   width: 100%;
   min-height: ${RFValue(64)}px;
   padding: 0 ${RFValue(24)}px;
   border-radius: ${RFValue(32)}px;
   border-width: ${RFValue(2)}px;
+  border-color: ${({ theme }) => theme.colors.placeholder};
 
   background-color: ${({ theme, isFocused }) =>
     isFocused ? theme.colors.background : theme.colors.shape};
 
-  border-color: ${({ theme, isFocused }) =>
-    isFocused ? theme.colors.primary : theme.colors.placeholder};
+  ${({ theme, isFocused }) =>
+    isFocused &&
+    css`
+      border-color: ${theme.colors.primary};
+    `}
+
+  ${({ theme, isErrored }) =>
+    isErrored &&
+    css`
+      border-color: ${theme.colors.attention};
+    `}
 
   flex-direction: row;
   align-items: center;
@@ -47,4 +58,12 @@ export const RNTextInput = styled.TextInput`
 
 export const Icon = styled(MaterialCommunityIcons)`
   margin-right: ${RFValue(16)}px;
+`;
+
+export const Error = styled.Text`
+  color: ${({ theme }) => theme.colors.attention};
+  font-size: ${RFValue(13)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  text-align: center;
+  margin-top: ${RFValue(4)}px;
 `;

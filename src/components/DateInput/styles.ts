@@ -1,10 +1,11 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { RectButton } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 interface ValueDisplayContainerProps {
   isFocused: boolean;
+  isErrored: boolean;
 }
 
 interface ValueTextProps {
@@ -29,13 +30,23 @@ export const ValueDisplayContainer = styled.View<ValueDisplayContainerProps>`
   height: ${RFValue(64)}px;
   border-radius: ${RFValue(32)}px;
   border-width: ${RFValue(2)}px;
+  border-color: ${({ theme }) => theme.colors.placeholder};
   overflow: hidden;
 
   background-color: ${({ theme, isFocused }) =>
     isFocused ? theme.colors.background : theme.colors.shape};
 
-  border-color: ${({ theme, isFocused }) =>
-    isFocused ? theme.colors.primary : theme.colors.placeholder};
+  ${({ theme, isFocused }) =>
+    isFocused &&
+    css`
+      border-color: ${theme.colors.primary};
+    `}
+
+  ${({ theme, isErrored }) =>
+    isErrored &&
+    css`
+      border-color: ${theme.colors.attention};
+    `}
 `;
 
 export const PickerPressable = styled(RectButton)`
@@ -60,4 +71,12 @@ export const ValueText = styled.Text<ValueTextProps>`
 
   color: ${({ theme, isPlaceholder }) =>
     isPlaceholder ? theme.colors.placeholder : theme.colors.text};
+`;
+
+export const Error = styled.Text`
+  color: ${({ theme }) => theme.colors.attention};
+  font-size: ${RFValue(13)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+  text-align: center;
+  margin-top: ${RFValue(4)}px;
 `;

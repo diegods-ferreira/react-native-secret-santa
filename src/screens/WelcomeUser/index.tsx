@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import { WelcomeUserScreenRouteProps } from '../../data/routes/welcome';
 
@@ -23,19 +26,35 @@ import {
   BackButtonIcon,
 } from './styles';
 
+interface FormData {
+  name: string;
+  profession: string;
+  birthDate: Date;
+  biography: string;
+  enableDarkMode: boolean;
+}
+
+const schema = Yup.object().shape({
+  name: Yup.string().required('Nome é obrigatório'),
+  profession: Yup.string(),
+  birthDate: Yup.date().required('Data de nascimento é obrigatória'),
+  biography: Yup.string(),
+  enableDarkMode: Yup.boolean(),
+});
+
 export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
   navigation,
 }) => {
   const { selectedCustomTheme, toggleCustomTheme } = useCustomTheme();
 
-  const [birthDate, setBirthDate] = useState<Date>();
-  const [enableDarkTheme, setEnableDarkTheme] = useState(
-    selectedCustomTheme === 'dark',
-  );
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
 
-  const handleEnableDarkMode = () => {
-    setEnableDarkTheme((prevState) => !prevState);
-    toggleCustomTheme();
+  const handleSaveUserInfo = (formData: FormData) => {
+    console.log(formData);
   };
 
   return (
@@ -57,6 +76,9 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
 
             <FormContainer>
               <TextInput
+                name="name"
+                control={control}
+                error={errors.name}
                 icon="account"
                 label="Seu nome*"
                 placeholder="Como se chama?"
@@ -64,14 +86,18 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
               />
 
               <DateInput
-                label="Sua data de nascimento"
+                name="birthDate"
+                control={control}
+                error={errors.birthDate}
+                label="Sua data de nascimento*"
                 placeholder="Quando você nasceu?"
-                value={birthDate}
-                onValueChange={(date: Date) => setBirthDate(date)}
                 maximumDate={new Date()}
               />
 
               <TextInput
+                name="profession"
+                control={control}
+                error={errors.profession}
                 icon="briefcase"
                 label="Sua profissão"
                 placeholder="Qual sua profissão?"
@@ -79,6 +105,9 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
               />
 
               <TextInput
+                name="biography"
+                control={control}
+                error={errors.biography}
                 icon="folder-text"
                 label="Sua biografia"
                 placeholder="Fale de você"
@@ -88,14 +117,20 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
               />
 
               <SwitchInput
+                name="enableDarkMode"
+                control={control}
                 label="Tema escuro?"
                 icon="theme-light-dark"
-                isEnabled={enableDarkTheme}
-                onValueChange={handleEnableDarkMode}
+                defaultValue={selectedCustomTheme === 'dark'}
+                onValueChange={() => toggleCustomTheme()}
               />
             </FormContainer>
 
-            <Button title="Finalizar" icon="check" />
+            <Button
+              title="Finalizar"
+              icon="check"
+              onPress={handleSubmit(handleSaveUserInfo)}
+            />
           </InnerContainer>
         </Container>
       </ScrollView>

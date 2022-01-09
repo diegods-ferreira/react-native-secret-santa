@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { WelcomeUserScreenRouteProps } from '../../data/routes/welcome';
 
 import { useCustomTheme } from '../../hooks/custom-theme';
+import { useUser } from '../../hooks/user';
 
 import { TextInput } from '../../components/TextInput';
 import { DateInput } from '../../components/DateInput';
@@ -47,14 +48,22 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
 }) => {
   const { selectedCustomTheme, toggleCustomTheme } = useCustomTheme();
 
+  const { saveUser } = useUser();
+
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const handleSaveUserInfo = (formData: FormData) => {
-    console.log(formData);
+  const [savingUser, setSavingUser] = useState(false);
+
+  const handleSaveUserInfo = async (formData: FormData) => {
+    setSavingUser(true);
+
+    const { name, birthDate, profession, biography } = formData;
+
+    await saveUser({ name, birthDate, profession, biography });
   };
 
   return (
@@ -130,6 +139,7 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
               title="Finalizar"
               icon="check"
               onPress={handleSubmit(handleSaveUserInfo)}
+              showLoadingIndicator={savingUser}
             />
           </InnerContainer>
         </Container>

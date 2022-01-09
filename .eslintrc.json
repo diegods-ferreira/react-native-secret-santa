@@ -49,7 +49,12 @@
           "tsx": "never"
         }
       ],
-      "prettier/prettier": "error",
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+      ],
       "react/style-prop-object": "off",
       "react/function-component-definition": [
         2,

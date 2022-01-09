@@ -51,7 +51,13 @@ export const Button: React.FC<ButtonProps> = ({
         <ActivityIndicator size="large" color={theme.colors.attention} />
       ) : (
         <>
-          {!!icon && <Icon name={icon} size={RFValue(20)} color="#ffffff" />}
+          {!!icon && (
+            <Icon
+              name={icon}
+              size={RFValue(20)}
+              color={theme.colors.attention}
+            />
+          )}
 
           <ButtonText type={type} iconRight={iconRight}>
             {title}

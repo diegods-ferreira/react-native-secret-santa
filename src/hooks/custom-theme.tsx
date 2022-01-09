@@ -8,14 +8,14 @@ import React, {
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { ASYNC_STORAGE_APP_PREFIX } from '../utils/constants/async-storage';
+
 type CustomTheme = 'light' | 'dark';
 
 interface CustomThemeContextData {
   selectedCustomTheme: CustomTheme;
   toggleCustomTheme(): void;
 }
-
-const APP_PREFIX = '@SecretSanta';
 
 const CustomThemeContext = createContext<CustomThemeContextData>(
   {} as CustomThemeContextData,
@@ -30,11 +30,13 @@ const CustomThemeProvider: React.FC = ({ children }) => {
 
     setSelectedCustomTheme(newTheme);
 
-    await AsyncStorage.setItem(`${APP_PREFIX}:theme`, newTheme);
+    await AsyncStorage.setItem(`${ASYNC_STORAGE_APP_PREFIX}:theme`, newTheme);
   }, [selectedCustomTheme]);
 
   const getStoredTheme = async () => {
-    const storedTheme = await AsyncStorage.getItem(`${APP_PREFIX}:theme`);
+    const storedTheme = await AsyncStorage.getItem(
+      `${ASYNC_STORAGE_APP_PREFIX}:theme`,
+    );
 
     if (storedTheme) {
       setSelectedCustomTheme(storedTheme as CustomTheme);

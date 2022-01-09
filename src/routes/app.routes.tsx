@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 
 const MockScreen = () => (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text style={{ color: '#ffffff' }}>Hello World!</Text>
+    <Text style={{ color: '#000000' }}>Hello World!</Text>
   </View>
 );
 

@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useTheme } from 'styled-components';
+import {
+  createDrawerNavigator,
+  DrawerContentComponentProps,
+} from '@react-navigation/drawer';
 
-const Stack = createNativeStackNavigator();
+import { DrawerContent } from '../components/DrawerContent';
 
 const MockScreen = () => (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -12,20 +14,22 @@ const MockScreen = () => (
   </View>
 );
 
-export const AppRoutes: React.FC = () => {
-  const theme = useTheme();
+const Drawer = createDrawerNavigator();
 
+const DrawerContentComponent = (props: DrawerContentComponentProps) => (
+  <DrawerContent {...props} />
+);
+
+export const AppRoutes: React.FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: theme.colors.background },
-        }}
+      <Drawer.Navigator
         initialRouteName="Home"
+        screenOptions={{ headerShown: false }}
+        drawerContent={DrawerContentComponent}
       >
-        <Stack.Screen name="Home" component={MockScreen} />
-      </Stack.Navigator>
+        <Drawer.Screen name="Home" component={MockScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };

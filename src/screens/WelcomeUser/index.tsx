@@ -10,6 +10,7 @@ import { WelcomeUserScreenRouteProps } from '../../data/routes/welcome';
 import { useCustomTheme } from '../../hooks/custom-theme';
 import { useUser } from '../../hooks/user';
 
+import { SafeAreaView } from '../../components/SafeAreaView';
 import { TextInput } from '../../components/TextInput';
 import { DateInput } from '../../components/DateInput';
 import { SwitchInput } from '../../components/SwitchInput';
@@ -67,83 +68,85 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      enabled
-    >
-      <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
-        <Container>
-          <InnerContainer style={boxShadow}>
-            <BackButton onPress={() => navigation.goBack()}>
-              <BackButtonIcon />
-            </BackButton>
+    <SafeAreaView>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        enabled
+      >
+        <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+          <Container>
+            <InnerContainer style={boxShadow}>
+              <BackButton onPress={() => navigation.goBack()}>
+                <BackButtonIcon />
+              </BackButton>
 
-            <Title>Vamos começar!</Title>
+              <Title>Vamos começar!</Title>
 
-            <Subtitle>Só vamos precisar de algumas informações...</Subtitle>
+              <Subtitle>Só vamos precisar de algumas informações...</Subtitle>
 
-            <FormContainer>
-              <TextInput
-                name="name"
-                control={control}
-                error={errors.name}
-                icon="account"
-                label="Seu nome*"
-                placeholder="Como se chama?"
-                autoCapitalize="words"
+              <FormContainer>
+                <TextInput
+                  name="name"
+                  control={control}
+                  error={errors.name}
+                  icon="account"
+                  label="Seu nome*"
+                  placeholder="Como se chama?"
+                  autoCapitalize="words"
+                />
+
+                <DateInput
+                  name="birthDate"
+                  control={control}
+                  error={errors.birthDate}
+                  label="Sua data de nascimento*"
+                  placeholder="Quando você nasceu?"
+                  maximumDate={new Date()}
+                />
+
+                <TextInput
+                  name="profession"
+                  control={control}
+                  error={errors.profession}
+                  icon="briefcase"
+                  label="Sua profissão"
+                  placeholder="Qual sua profissão?"
+                  autoCapitalize="words"
+                />
+
+                <TextInput
+                  name="biography"
+                  control={control}
+                  error={errors.biography}
+                  icon="folder-text"
+                  label="Sua biografia"
+                  placeholder="Fale de você"
+                  autoCapitalize="sentences"
+                  multiline
+                  numberOfLines={5}
+                />
+
+                <SwitchInput
+                  name="enableDarkMode"
+                  control={control}
+                  label="Tema escuro?"
+                  icon="theme-light-dark"
+                  defaultValue={selectedCustomTheme === 'dark'}
+                  onValueChange={() => toggleCustomTheme()}
+                />
+              </FormContainer>
+
+              <Button
+                title="Finalizar"
+                icon="check"
+                onPress={handleSubmit(handleSaveUserInfo)}
+                showLoadingIndicator={savingUser}
               />
-
-              <DateInput
-                name="birthDate"
-                control={control}
-                error={errors.birthDate}
-                label="Sua data de nascimento*"
-                placeholder="Quando você nasceu?"
-                maximumDate={new Date()}
-              />
-
-              <TextInput
-                name="profession"
-                control={control}
-                error={errors.profession}
-                icon="briefcase"
-                label="Sua profissão"
-                placeholder="Qual sua profissão?"
-                autoCapitalize="words"
-              />
-
-              <TextInput
-                name="biography"
-                control={control}
-                error={errors.biography}
-                icon="folder-text"
-                label="Sua biografia"
-                placeholder="Fale de você"
-                autoCapitalize="sentences"
-                multiline
-                numberOfLines={5}
-              />
-
-              <SwitchInput
-                name="enableDarkMode"
-                control={control}
-                label="Tema escuro?"
-                icon="theme-light-dark"
-                defaultValue={selectedCustomTheme === 'dark'}
-                onValueChange={() => toggleCustomTheme()}
-              />
-            </FormContainer>
-
-            <Button
-              title="Finalizar"
-              icon="check"
-              onPress={handleSubmit(handleSaveUserInfo)}
-              showLoadingIndicator={savingUser}
-            />
-          </InnerContainer>
-        </Container>
-      </ScrollView>
-    </KeyboardAvoidingView>
+            </InnerContainer>
+          </Container>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };

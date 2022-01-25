@@ -2,6 +2,7 @@ import React from 'react';
 
 import { WelcomeScreenRouteProps } from '../../data/routes/welcome';
 
+import { SafeAreaView } from '../../components/SafeAreaView';
 import { Button } from '../../components/Button';
 
 import {
@@ -16,27 +17,29 @@ import {
 
 export const Welcome: React.FC<WelcomeScreenRouteProps> = ({ navigation }) => {
   return (
-    <Container>
-      <MainImageContainer>
-        <MainImage />
-      </MainImageContainer>
+    <SafeAreaView>
+      <Container>
+        <MainImageContainer>
+          <MainImage />
+        </MainImageContainer>
 
-      <TitleContainer>
-        <WelcomeText>Bem-vindo ao</WelcomeText>
+        <TitleContainer>
+          <WelcomeText>Bem-vindo ao</WelcomeText>
 
-        <Title>Amigo Secreto</Title>
+          <Title>Amigo Secreto</Title>
 
-        <Subtitle>
-          Dê uma pequena porção de felicidade para seus amigos e colegas!
-        </Subtitle>
+          <Subtitle>
+            Dê uma pequena porção de felicidade para seus amigos e colegas!
+          </Subtitle>
 
-        <Button
-          title="Começar"
-          icon="arrow-right"
-          iconRight
-          onPress={() => navigation.navigate('WelcomeUser')}
-        />
-      </TitleContainer>
-    </Container>
+          <Button
+            title="Começar"
+            icon="arrow-right"
+            iconRight
+            onPress={() => navigation.navigate('WelcomeUser')}
+          />
+        </TitleContainer>
+      </Container>
+    </SafeAreaView>
   );
 };

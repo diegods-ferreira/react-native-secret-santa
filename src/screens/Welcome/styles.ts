@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 import santaClausImg from '../../assets/images/santa-claus.png';
 
@@ -28,7 +29,7 @@ export const TitleContainer = styled.View.attrs(({ theme }) => ({
   style: theme.boxShadow,
 }))`
   background-color: ${({ theme }) => theme.colors.shape};
-  padding: ${RFValue(64)}px ${RFValue(24)}px;
+  padding: ${RFValue(64)}px ${RFValue(24)}px ${getBottomSpace() + RFValue(64)}px;
   border-top-left-radius: ${RFValue(28)}px;
   border-top-right-radius: ${RFValue(28)}px;
 `;

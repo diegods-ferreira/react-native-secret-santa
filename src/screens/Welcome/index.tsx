@@ -17,8 +17,8 @@ import {
 
 export const Welcome: React.FC<WelcomeScreenRouteProps> = ({ navigation }) => {
   return (
-    <SafeAreaView>
-      <Container>
+    <Container>
+      <SafeAreaView>
         <MainImageContainer>
           <MainImage />
         </MainImageContainer>
@@ -39,7 +39,7 @@ export const Welcome: React.FC<WelcomeScreenRouteProps> = ({ navigation }) => {
             onPress={() => navigation.navigate('WelcomeUser')}
           />
         </TitleContainer>
-      </Container>
-    </SafeAreaView>
+      </SafeAreaView>
+    </Container>
   );
 };

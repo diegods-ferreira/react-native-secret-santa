@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 import { WelcomeUserScreenRouteProps } from '../../data/routes/welcome';
 
@@ -68,14 +69,20 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
   };
 
   return (
-    <SafeAreaView>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        enabled
-      >
-        <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
-          <Container>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      enabled
+    >
+      <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled">
+        <Container>
+          <SafeAreaView
+            style={{
+              paddingBottom: getBottomSpace(),
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <InnerContainer style={boxShadow}>
               <BackButton onPress={() => navigation.goBack()}>
                 <BackButtonIcon />
@@ -144,9 +151,9 @@ export const WelcomeUser: React.FC<WelcomeUserScreenRouteProps> = ({
                 showLoadingIndicator={savingUser}
               />
             </InnerContainer>
-          </Container>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+          </SafeAreaView>
+        </Container>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };

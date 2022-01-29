@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import AppLoading from 'expo-app-loading';
 import {
@@ -28,11 +28,11 @@ export const App: React.FC = () => {
 
   return (
     <AppProvider>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Routes />
         </GestureHandlerRootView>
-      </SafeAreaView>
+      </SafeAreaProvider>
     </AppProvider>
   );
 };

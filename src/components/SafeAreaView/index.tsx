@@ -1,27 +1,17 @@
 import React from 'react';
-import { Platform, View } from 'react-native';
-import { SafeAreaView as RNSACSafeAreaView } from 'react-native-safe-area-context';
-import {
-  getBottomSpace,
-  getStatusBarHeight,
-} from 'react-native-iphone-x-helper';
+import { Platform, ViewProps } from 'react-native';
 
-export const SafeAreaView: React.FC = ({ children }) => {
+import { AndroidSafeAreaView, IOSSafeAreaView } from './styles';
+
+type SafeAreaViewProps = ViewProps;
+
+export const SafeAreaView: React.FC<SafeAreaViewProps> = ({
+  children,
+  ...rest
+}) => {
   if (Platform.OS === 'android') {
-    return (
-      <RNSACSafeAreaView style={{ flex: 1 }}>{children}</RNSACSafeAreaView>
-    );
+    return <AndroidSafeAreaView {...rest}>{children}</AndroidSafeAreaView>;
   }
 
-  return (
-    <View
-      style={{
-        flex: 1,
-        paddingTop: getStatusBarHeight(),
-        paddingBottom: getBottomSpace(),
-      }}
-    >
-      {children}
-    </View>
-  );
+  return <IOSSafeAreaView {...rest}>{children}</IOSSafeAreaView>;
 };
